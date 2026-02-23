@@ -12,6 +12,8 @@ export type EventType = 'MTGO Game' | 'In-Person Game'
 
 export type MulliganTo = 6 | 5 | 4 | 3
 
+export type NewDeck = Omit<Deck, "id" | "createdAt">
+
 export interface Deck {
     id: string
     name: string
