@@ -7,8 +7,8 @@ type HeaderProps = {
 export default function Header(props: HeaderProps) {
     return (
         <>
-            <h1>`${props.title}`</h1>
-            <p>`${props.description}`</p>
+            <h1>{props.title}</h1>
+            <p>{props.description}</p>
         </>
     )
 
