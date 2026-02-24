@@ -1,0 +1,1 @@
+export const MULLIGAN_OPTIONS = [6, 5, 4, 3] as const

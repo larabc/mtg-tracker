@@ -14,6 +14,8 @@ export type MulliganTo = 6 | 5 | 4 | 3
 
 export type NewDeck = Omit<Deck, "id" | "createdAt">
 
+export type NewMatch = Omit<Match, "id">
+
 export interface Deck {
     id: string
     name: string
