@@ -1,16 +1,22 @@
 // src/types/index.ts
 
-export type Format = 'Standard' | 'Modern' | 'Legacy' | 'Vintage' | 'Pauper' | 'Commander' | 'Draft'
+import { MATCH_RESULTS } from "../utils/matchResult"
+import type { MULLIGAN_OPTIONS } from "../utils/mulliganOptions"
+import { FORMATS } from "../utils/formats"
+import { COLORS } from "../utils/colors"
+import { ARCHETYPES } from "../utils/archetypes"
 
-export type Color = 'W' | 'U' | 'B' | 'R' | 'G'
+export type Format = typeof FORMATS[number]
 
-export type Archetype = 'Aggro' | 'Control' | 'Combo' | 'Midrange' | 'Tempo' | 'Ramp'
+export type Color = typeof COLORS[number]
 
-export type MatchResult = '2-0' | '2-1' | '1-1' | '1-2' | '0-2'
+export type Archetype = typeof ARCHETYPES[number]
+
+export type MatchResult = typeof MATCH_RESULTS[number]
 
 export type EventType = 'MTGO Game' | 'In-Person Game'
 
-export type MulliganTo = 6 | 5 | 4 | 3
+export type MulliganTo = typeof MULLIGAN_OPTIONS[number]
 
 export type NewDeck = Omit<Deck, "id" | "createdAt">
 

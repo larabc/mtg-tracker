@@ -1,9 +1,9 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Decks from './pages/decks';
-import LifeTracker from './pages/life-tracker';
-import NewMatch from './pages/new-match';
-import Stats from './pages/stats';
+import Decks from './pages/Decks';
+import LifeTracker from './pages/LifeTracker';
+import NewMatch from './pages/NewMatch';
+import Stats from './pages/Stats';
 import Nav from './components/nav';
 
 function App() {

@@ -20,28 +20,27 @@ const useMatches = () => {
     }, [matches])
 
 
-    function saveMatch(props: NewMatch) {
-        const newMatch = { ...props, id: uuidv4(), date: new Date().toISOString() }
+    function createMatch(match: NewMatch) {
+        const newMatch = { ...match, id: uuidv4(), date: new Date().toISOString() }
         setMatches([...matches, newMatch]);
     }
 
-    function updateMatch(props: Match) {
-        const matchId = props.id;
-        const updatedMatches = matches.map(match => {
-            if (match.id === matchId) {
-                return props
+    function updateMatch(match: Match) {
+        const updatedMatches = matches.map(existing => {
+            if (existing.id === match.id) {
+                return match
             }
-            return match;
+            return existing;
         })
 
         setMatches(updatedMatches);
     }
 
-    function deleteMatch(props: Match) {
-        setMatches(matches.filter(match => match.id !== props.id));
+    function deleteMatch(match: Match) {
+        setMatches(matches.filter(existing => existing.id !== match.id));
     }
 
-    return { matches, saveMatch, updateMatch, deleteMatch };
+    return { matches, createMatch, updateMatch, deleteMatch };
 }
 
 export default useMatches; 

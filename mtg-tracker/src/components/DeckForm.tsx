@@ -42,7 +42,7 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
             onSubmit(formData);
         }}>
             <label htmlFor="deck-name">Deck Name</label>
-            <input type="text" name="name" onChange={handleInputChange} />
+            <input type="text" id="deck-name" name="name" onChange={handleInputChange} />
             <select name="format" id="format-select" onChange={handleInputChange}>
                 {FORMATS.map(format => (
                     <option key={format} value={format}>{format}</option>
@@ -52,8 +52,8 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
                 <legend>Color Identity</legend>
                 {COLORS.map(color => (
                     <div key={color}>
-                        <input type="checkbox" id={color} value={color} onChange={handleColorChange} />
-                        <label htmlFor={color}>{color}</label>
+                        <input type="checkbox" id={`color-${color.toLowerCase()}`} value={color} onChange={handleColorChange} />
+                        <label htmlFor={`color-${color.toLowerCase()}`}>{color}</label>
                     </div>
                 ))}
             </fieldset>

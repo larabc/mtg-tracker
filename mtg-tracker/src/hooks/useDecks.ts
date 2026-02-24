@@ -16,7 +16,6 @@ const useDecks = () => {
 
     //Writes on local storage the decks when any change is made on decks state.
     useEffect(() => {
-        console.log('arrives to useEffect with decks', decks);
 
         if (decks.length > 0) {
             localStorage.setItem('decks', JSON.stringify(decks))
@@ -25,28 +24,27 @@ const useDecks = () => {
     }, [decks]
     );
 
-    function createDeck(props: NewDeck) {
-        const newDeck = { ...props, id: uuidv4(), createdAt: new Date().toISOString() };
+    function createDeck(deck: NewDeck) {
+        const newDeck = { ...deck, id: uuidv4(), createdAt: new Date().toISOString() };
         setDecks([...decks, newDeck]);
     }
 
-    function updateDeck(props: Deck) {
+    function updateDeck(deck: Deck) {
         //search for the deck with same ID stored and update its properties with the coming ones
-        const deckId = props.id;
-        const updatedDecks = decks.map(deck => {
-            if (deck.id === deckId) {
-                return props;
+        const updatedDecks = decks.map(existing => {
+            if (existing.id === deck.id) {
+                return deck;
             }
-            return deck;
+            return existing;
         })
 
         setDecks(updatedDecks)
 
     }
 
-    function deleteDeck(props: Deck) {
+    function deleteDeck(deck: Deck) {
         //search for the deck with the same ID store and delete it from the array and call to the sate again
-        setDecks(decks.filter(deck => deck.id !== props.id));
+        setDecks(decks.filter(existing => existing.id !== deck.id));
     }
 
     return { decks, createDeck, updateDeck, deleteDeck };

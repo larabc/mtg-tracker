@@ -1,0 +1,1 @@
+export const MATCH_RESULTS = ['2-0', '2-1', '1-1', '1-2', '0-2'] as const
