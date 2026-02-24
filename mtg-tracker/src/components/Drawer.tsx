@@ -1,24 +1,22 @@
-import { useState } from "react";
+import DeckForm from "./DeckForm";
+import type { NewDeck } from "../types";
 
 type DrawerProps = {
     isOpen: boolean,
-    onClose: () => void
-}
-export default function Drawer({ isOpen, onClose }: DrawerProps) {
+    onClose: () => void,
+    createDeck: (deck: NewDeck) => void
+};
 
-    const [formData, setFormData] = useState({
-        name: '',
-        format: '',
-        colors: [],
-        archetype: '',
-        comments: ''
-    })
+export default function Drawer({ onClose, createDeck }: DrawerProps) {
+    const handleSubmit = (newDeck: NewDeck) => {
+        createDeck(newDeck);
+        onClose();
+    };
 
     return (
         <div>
-            <button onClick={onClose}>
-                Close
-            </button>
+            <DeckForm onSubmit={handleSubmit} />
+            <button onClick={onClose}>Close</button>
         </div>
-    )
+    );
 }

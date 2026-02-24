@@ -1,0 +1,1 @@
+export const FORMATS = ['Standard', 'Modern', 'Legacy', 'Vintage', 'Pauper', 'Commander', 'Draft'] as const

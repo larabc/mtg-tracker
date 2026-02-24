@@ -1,14 +1,14 @@
 import type { Deck } from "../types";
 
-export default function DecksList(decks: Deck[]) {
+export default function DecksList({ decks }: { decks: Deck[] }) {
     return (
         <>
             {
-                decks.map(deck => {
-                    <div>
-                        <p>`${deck.name}`</p>
+                decks.map(deck => (
+                    <div key={deck.id}>
+                        <p>{deck.name}</p>
                     </div>
-                })
+                ))
             }
         </>
     );

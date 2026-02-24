@@ -16,17 +16,21 @@ const useDecks = () => {
 
     //Writes on local storage the decks when any change is made on decks state.
     useEffect(() => {
-        if (decks.length > 0) {
-            localStorage.setItem('decks', JSON.stringify(decks))
-        }
+        console.log('arrives to useEffect with decks', decks);
+
+        localStorage.setItem('decks', JSON.stringify(decks))
+
 
     }, [decks]
     );
 
     function createDeck(props: NewDeck) {
-        //get all the existing decks and push the new one to the array and setDecks with the new array
-        const newDeck = { ...props, id: uuidv4(), createdAt: new Date().toISOString() }
-        setDecks([...decks, newDeck])
+        const storedDecks = localStorage.getItem('decks');
+        const decksArray = storedDecks ? JSON.parse(storedDecks) : [];
+        const newDeck = { ...props, id: uuidv4(), createdAt: new Date().toISOString() };
+        console.log('Decks in localStorage before adding:', decksArray);
+        console.log('New deck to add:', newDeck);
+        setDecks([...decksArray, newDeck]);
     }
 
     function updateDeck(props: Deck) {

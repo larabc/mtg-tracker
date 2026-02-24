@@ -1,0 +1,1 @@
+export const COLORS = ['W', 'U', 'B', 'R', 'G'] as const
