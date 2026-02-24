@@ -18,19 +18,16 @@ const useDecks = () => {
     useEffect(() => {
         console.log('arrives to useEffect with decks', decks);
 
-        localStorage.setItem('decks', JSON.stringify(decks))
-
+        if (decks.length > 0) {
+            localStorage.setItem('decks', JSON.stringify(decks))
+        }
 
     }, [decks]
     );
 
     function createDeck(props: NewDeck) {
-        const storedDecks = localStorage.getItem('decks');
-        const decksArray = storedDecks ? JSON.parse(storedDecks) : [];
         const newDeck = { ...props, id: uuidv4(), createdAt: new Date().toISOString() };
-        console.log('Decks in localStorage before adding:', decksArray);
-        console.log('New deck to add:', newDeck);
-        setDecks([...decksArray, newDeck]);
+        setDecks([...decks, newDeck]);
     }
 
     function updateDeck(props: Deck) {
