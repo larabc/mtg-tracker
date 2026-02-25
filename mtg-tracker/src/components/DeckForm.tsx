@@ -14,9 +14,9 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
 
     const [formData, setFormData] = useState<NewDeck>({
         name: '',
-        format: 'Standard' as Format,
+        format: '' as Format,
         colors: [] as Color[],
-        archetype: 'Aggro' as Archetype,
+        archetype: '' as Archetype,
         comments: '',
         archived: false
     })
@@ -44,6 +44,7 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
             <label htmlFor="deck-name">Deck Name</label>
             <input type="text" id="deck-name" name="name" onChange={handleInputChange} />
             <select name="format" value={formData.format} onChange={handleInputChange}>
+                <option value="">Select a format</option>
                 {FORMATS.map(format => (
                     <option key={format} value={format}>{format}</option>
                 ))}
@@ -58,6 +59,7 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
                 ))}
             </fieldset>
             <select name="archetype" value={formData.archetype} onChange={handleInputChange}>
+                <option value="">Select an archetype</option>
                 {ARCHETYPES.map(archetype => (
                     <option key={archetype} value={archetype}>{archetype}</option>
                 ))}

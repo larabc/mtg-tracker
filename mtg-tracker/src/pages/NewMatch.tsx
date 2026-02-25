@@ -47,14 +47,16 @@ export default function NewMatch() {
             <Header title="Record Match" />
             <button onClick={handleMatchCreation}>Save</button>
             <label htmlFor="deck-select"></label>
-            <select name="deckId" id="deck-select" onChange={handleInputChange}>
+            <select name="deckId" id="deck-select" value={matchData.deckId} onChange={handleInputChange}>
+                <option value="">Select a deck</option>
                 {decks.map(deck => (
-                    <option key={deck.id} value={deck.name}>{deck.name} ({deck.format})</option>
+                    <option key={deck.id} value={deck.id}>{deck.name} ({deck.format})</option>
                 ))}
             </select>
-            <select name="opponentDeckId" id="opponent-deck-select" onChange={handleInputChange}>
+            <select name="opponentDeckId" id="opponent-deck-select" value={matchData.opponentDeckId} onChange={handleInputChange}>
+                <option value="">Select a deck</option>
                 {decks.map(deck => (
-                    <option key={deck.id} value={deck.name}>{deck.name} ({deck.format})</option>
+                    <option key={deck.id} value={deck.id}>{deck.name} ({deck.format})</option>
                 ))}
             </select>
             <fieldset>
