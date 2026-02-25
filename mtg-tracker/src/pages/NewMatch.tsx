@@ -1,9 +1,10 @@
 import useMatches from "../hooks/useMatches"
 import Header from "../components/Header";
 import useDecks from "../hooks/useDecks";
-import { type EventType, type MatchResult, type NewMatch } from "../types";
+import { type EventType, type MatchResult, type MulliganTo, type NewMatch } from "../types";
 import { useState } from "react";
 import { MULLIGAN_OPTIONS } from "../utils/mulliganOptions";
+import { MATCH_RESULTS } from "../utils/matchResult";
 
 export default function NewMatch() {
 
@@ -21,6 +22,10 @@ export default function NewMatch() {
     })
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        if (e.target.name === 'mulliganTo') {
+            setMatchData({ ...matchData, mulliganTo: Number(e.target.value) as MulliganTo })
+            return
+        }
         setMatchData({ ...matchData, [e.target.name]: e.target.value })
     }
 
@@ -28,10 +33,18 @@ export default function NewMatch() {
         setMatchData({ ...matchData, [e.target.name]: e.target.checked })
     }
 
+    const handleResultSelect = (result: MatchResult) => {
+        setMatchData({ ...matchData, result })
+    }
+
+    const handleMatchCreation = () => {
+        createMatch(matchData);
+    }
+
     return (
         <>
             <Header title="Record Match" />
-            <button>Save</button>
+            <button onClick={handleMatchCreation}>Save</button>
             <label htmlFor="deck-select"></label>
             <select name="deckId" id="deck-select" onChange={handleInputChange}>
                 {decks.map(deck => (
@@ -61,7 +74,12 @@ export default function NewMatch() {
             <input type="datetime-local" value={matchData.date} name="date" onChange={handleInputChange} />
 
             {/* Create Match Results Section */}
-
+            <label htmlFor="match-result">Match Results</label>
+            {
+                MATCH_RESULTS.map(result => (
+                    <button key={result} value={result} className={matchData.result === result ? 'selected' : ''} onClick={() => handleResultSelect(result)}>{result}</button>
+                ))
+            }
         </>
     );
 }
