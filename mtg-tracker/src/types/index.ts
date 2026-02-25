@@ -36,6 +36,7 @@ export interface Deck {
 export interface Match {
     id: string
     deckId: string
+    opponentDeckId: string
     eventType: EventType
     onThePlay: boolean
     result: MatchResult

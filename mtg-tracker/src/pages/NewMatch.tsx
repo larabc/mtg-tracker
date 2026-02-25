@@ -13,6 +13,7 @@ export default function NewMatch() {
 
     const [matchData, setMatchData] = useState<NewMatch>({
         deckId: '',
+        opponentDeckId: '',
         eventType: '' as EventType,
         onThePlay: false,
         result: '' as MatchResult,
@@ -48,13 +49,20 @@ export default function NewMatch() {
             <label htmlFor="deck-select"></label>
             <select name="deckId" id="deck-select" onChange={handleInputChange}>
                 {decks.map(deck => (
-                    <option key={deck.id} value={deck.id}>{deck.name} ({deck.format})</option>
+                    <option key={deck.id} value={deck.name}>{deck.name} ({deck.format})</option>
+                ))}
+            </select>
+            <select name="opponentDeckId" id="opponent-deck-select" onChange={handleInputChange}>
+                {decks.map(deck => (
+                    <option key={deck.id} value={deck.name}>{deck.name} ({deck.format})</option>
                 ))}
             </select>
             <fieldset>
                 <legend>Event Type</legend>
-                <input type="radio" name="eventType" value="MTGO Game" onChange={handleInputChange} />
-                <input type="radio" name="eventType" value="In-Person Game" onChange={handleInputChange} />
+                <input type="radio" name="eventType" value="MTGO Game" id="mtgo" onChange={handleInputChange} />
+                <label htmlFor="mtgo">MTGO Game</label>
+                <input type="radio" name="eventType" value="In-Person Game" id="in-person" onChange={handleInputChange} />
+                <label htmlFor="in-person">In-Person Game</label>
             </fieldset>
             <input type="checkbox" id="on-the-play" name="onThePlay" onChange={handleCheckboxChange} />
             <label htmlFor="on-the-play">On the Play</label>
