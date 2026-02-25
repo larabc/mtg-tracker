@@ -24,12 +24,20 @@ export default function NewMatch() {
         date: new Date().toISOString().slice(0, 16)
     })
 
+    const [errors, setErrors] = useState<{ deckId?: string, opponentDeckId?: string, eventType?: string, result?: string }>({});
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        if (e.target.name === 'mulliganTo') {
+        const { name, value } = e.target;
+
+        if (errors[name as keyof typeof errors]) {
+            setErrors({ ...errors, [name]: undefined })
+        }
+
+        if (name === 'mulliganTo') {
             setMatchData({ ...matchData, mulliganTo: Number(e.target.value) as MulliganTo })
             return
         }
-        setMatchData({ ...matchData, [e.target.name]: e.target.value })
+        setMatchData({ ...matchData, [name]: e.target.value })
     }
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,10 +45,24 @@ export default function NewMatch() {
     }
 
     const handleResultSelect = (result: MatchResult) => {
+        if (errors.result) setErrors({ ...errors, result: undefined })
         setMatchData({ ...matchData, result })
     }
 
     const handleMatchCreation = () => {
+
+        const newErrors: { deckId?: string, opponentDeckId?: string, eventType?: string, result?: string } = {}
+
+        if (!matchData.deckId) newErrors.deckId = 'Select a deck';
+        if (!matchData.opponentDeckId) newErrors.opponentDeckId = 'Select a deck';
+        if (!matchData.eventType) newErrors.eventType = 'Select an event type';
+        if (!matchData.result) newErrors.result = 'Select a result';
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         createMatch(matchData);
         navigate('/decks');
     }
@@ -56,18 +78,22 @@ export default function NewMatch() {
                     <option key={deck.id} value={deck.id}>{deck.name} ({deck.format})</option>
                 ))}
             </select>
+            {errors.deckId && <span>{errors.deckId}</span>}
             <select name="opponentDeckId" id="opponent-deck-select" value={matchData.opponentDeckId} onChange={handleInputChange}>
                 <option value="">Select a deck</option>
                 {decks.map(deck => (
                     <option key={deck.id} value={deck.id}>{deck.name} ({deck.format})</option>
                 ))}
             </select>
+            {errors.opponentDeckId && <span>{errors.opponentDeckId}</span>}
             <fieldset>
                 <legend>Event Type</legend>
                 <input type="radio" name="eventType" value="MTGO Game" id="mtgo" onChange={handleInputChange} />
                 <label htmlFor="mtgo">MTGO Game</label>
                 <input type="radio" name="eventType" value="In-Person Game" id="in-person" onChange={handleInputChange} />
                 <label htmlFor="in-person">In-Person Game</label>
+                {errors.eventType && <span>{errors.eventType}</span>}
+
             </fieldset>
             <input type="checkbox" id="on-the-play" name="onThePlay" onChange={handleCheckboxChange} />
             <label htmlFor="on-the-play">On the Play</label>
@@ -93,6 +119,8 @@ export default function NewMatch() {
                     <button key={result} value={result} className={matchData.result === result ? 'selected' : ''} onClick={() => handleResultSelect(result)}>{result}</button>
                 ))
             }
+            {errors.result && <span>{errors.result}</span>}
+
         </>
     );
 }
