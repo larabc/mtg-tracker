@@ -1,27 +1,29 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Match, NewMatch } from "../types"
 import { v4 as uuidv4 } from 'uuid'
 
 const useMatches = () => {
     const [matches, setMatches] = useState<Match[]>([]);
+    const initialized = useRef(false);
 
     useEffect(() => {
         const matchesHistory = localStorage.getItem('matches');
         if (matchesHistory) {
             setMatches(JSON.parse(matchesHistory));
         }
+        initialized.current = true;
     }, [])
 
     useEffect(() => {
-        if (matches.length > 0) {
+        if (initialized.current) {
             localStorage.setItem('matches', JSON.stringify(matches))
         }
     }, [matches])
 
 
     function createMatch(match: NewMatch) {
-        const newMatch = { ...match, id: uuidv4(), date: new Date().toISOString() }
+        const newMatch = { ...match, id: uuidv4() }
         setMatches([...matches, newMatch]);
     }
 

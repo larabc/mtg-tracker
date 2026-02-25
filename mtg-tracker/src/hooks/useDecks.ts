@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Deck } from "../types";
 import type { NewDeck } from "../types";
 import { v4 as uuidv4 } from 'uuid'
 
 const useDecks = () => {
     const [decks, setDecks] = useState<Deck[]>([]);
+    const initialized = useRef(false);
 
     //Reads the state to get stored decks in localStorage and sets them in the live app state to be accessible during runtime.
     useEffect(() => {
@@ -12,17 +13,15 @@ const useDecks = () => {
         if (storedDecks) {
             setDecks(JSON.parse(storedDecks));
         }
+        initialized.current = true;
     }, [])
 
     //Writes on local storage the decks when any change is made on decks state.
     useEffect(() => {
-
-        if (decks.length > 0) {
+        if (initialized.current) {
             localStorage.setItem('decks', JSON.stringify(decks))
         }
-
-    }, [decks]
-    );
+    }, [decks]);
 
     function createDeck(deck: NewDeck) {
         const newDeck = { ...deck, id: uuidv4(), createdAt: new Date().toISOString() };
