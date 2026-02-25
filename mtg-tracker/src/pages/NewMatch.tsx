@@ -5,11 +5,13 @@ import { type EventType, type MatchResult, type MulliganTo, type NewMatch } from
 import { useState } from "react";
 import { MULLIGAN_OPTIONS } from "../utils/mulliganOptions";
 import { MATCH_RESULTS } from "../utils/matchResult";
+import { useNavigate } from "react-router-dom";
 
 export default function NewMatch() {
 
     const { createMatch } = useMatches();
     const { decks } = useDecks();
+    const navigate = useNavigate();
 
     const [matchData, setMatchData] = useState<NewMatch>({
         deckId: '',
@@ -40,6 +42,7 @@ export default function NewMatch() {
 
     const handleMatchCreation = () => {
         createMatch(matchData);
+        navigate('/decks');
     }
 
     return (
