@@ -5,18 +5,17 @@ import { v4 as uuidv4 } from 'uuid'
 
 const useMatches = () => {
     const [matches, setMatches] = useState<Match[]>([]);
-    const initialized = useRef(false);
 
     useEffect(() => {
         const matchesHistory = localStorage.getItem('matches');
         if (matchesHistory) {
             setMatches(JSON.parse(matchesHistory));
         }
-        initialized.current = true;
+
     }, [])
 
     useEffect(() => {
-        if (initialized.current && matches.length > 0) {
+        if (matches.length > 0) {
             localStorage.setItem('matches', JSON.stringify(matches))
         }
     }, [matches])

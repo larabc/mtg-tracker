@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 const useDecks = () => {
     const [decks, setDecks] = useState<Deck[]>([]);
-    const hasLoaded = useRef(false);
 
     //Reads the state to get stored decks in localStorage and sets them in the live app state to be accessible during runtime.
     useEffect(() => {
@@ -14,11 +13,11 @@ const useDecks = () => {
         if (storedDecks) {
             setDecks(JSON.parse(storedDecks))
         }
-        hasLoaded.current = true
+
     }, [])
 
     useEffect(() => {
-        if (hasLoaded.current && decks.length > 0) {
+        if (decks.length > 0) {
             localStorage.setItem('decks', JSON.stringify(decks))
         }
     }, [decks])
