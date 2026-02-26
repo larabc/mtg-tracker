@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import type { Deck } from "../types";
 import type { NewDeck } from "../types";
 import { v4 as uuidv4 } from 'uuid'
