@@ -16,7 +16,7 @@ const useMatches = () => {
     }, [])
 
     useEffect(() => {
-        if (initialized.current) {
+        if (initialized.current && matches.length > 0) {
             localStorage.setItem('matches', JSON.stringify(matches))
         }
     }, [matches])
