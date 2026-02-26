@@ -34,10 +34,10 @@ export default function NewMatch() {
         }
 
         if (name === 'mulliganTo') {
-            setMatchData({ ...matchData, mulliganTo: Number(e.target.value) as MulliganTo })
+            setMatchData({ ...matchData, mulliganTo: Number(value) as MulliganTo })
             return
         }
-        setMatchData({ ...matchData, [name]: e.target.value })
+        setMatchData({ ...matchData, [name]: value })
     }
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
