@@ -14,9 +14,10 @@ export default function Drawer({ onClose, createDeck }: DrawerProps) {
     };
 
     return (
-        <div>
-            <DeckForm onSubmit={handleSubmit} />
+        <div className="fixed bottom-0 left-0 w-full bg-zinc-900 rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
             <button onClick={onClose}>Close</button>
+            <DeckForm onSubmit={handleSubmit} />
+
         </div>
     );
 }

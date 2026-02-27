@@ -20,7 +20,7 @@ export default function Decks() {
 
     return (
         <>
-            <Header title="Decks" />
+            <Header title="My Decks" />
             {isDrawerOpen && (
                 <Drawer isOpen={isDrawerOpen} onClose={handleDrawerClose} createDeck={createDeck} />
             )}
