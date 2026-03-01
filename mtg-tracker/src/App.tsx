@@ -4,6 +4,7 @@ import Decks from './pages/Decks';
 import LifeTracker from './pages/LifeTracker';
 import NewMatch from './pages/NewMatch';
 import Stats from './pages/Stats';
+import StatsDeck from './pages/StatsDeck'
 import Nav from './components/nav';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/life-tracker" element={<LifeTracker />} />
             <Route path="/new-match" element={<NewMatch />} />
             <Route path="/stats" element={<Stats />} />
+            <Route path="/stats/:deckId" element={<StatsDeck />} />
           </Routes>
         </main>
         <Nav />
