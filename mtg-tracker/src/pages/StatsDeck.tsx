@@ -35,7 +35,7 @@ const StatsDeck = () => {
 
                 {/* Opponent breakdown */}
                 <div className="flex flex-col gap-3">
-                    <p className="text-zinc-400 text-xs uppercase tracking-widest">vs. Opponents</p>
+                    <p className="text-zinc-400 text-xs uppercase tracking-widest">Match-up spread</p>
 
                     {Object.entries(opponentStats).map(([opponentId, opponentMatches]) => {
                         const opponentDeck = decks.find(d => d.id === opponentId);
@@ -46,6 +46,7 @@ const StatsDeck = () => {
                         return (
                             <div key={opponentId} className="bg-zinc-800 rounded-xl p-4 border border-zinc-700">
                                 <div className="flex items-center justify-between mb-2">
+
                                     <span className="text-white font-semibold text-sm">
                                         {opponentDeck?.name ?? 'Unknown'}
                                     </span>
@@ -63,7 +64,7 @@ const StatsDeck = () => {
 
                 {/* Match list */}
                 <div className="flex flex-col gap-3">
-                    <p className="text-zinc-400 text-xs uppercase tracking-widest">Match History</p>
+                    <p className="text-zinc-400 text-xs uppercase tracking-widest"> Match History</p>
 
                     {deckMatches.length === 0 ? (
                         <p className="text-zinc-500 text-sm text-center py-4">No matches yet</p>
@@ -73,7 +74,12 @@ const StatsDeck = () => {
                             return (
                                 <div key={match.id} className="bg-zinc-800 rounded-xl p-4 border border-zinc-700">
                                     <div className="flex items-center justify-between mb-1">
-                                        <span className="text-white text-sm">{opponent?.name ?? 'Unknown'}</span>
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-zinc-400 text-xs">
+                                                vs.
+                                            </span>
+                                            <span className="text-white text-sm">{opponent?.name ?? 'Unknown'}</span>
+                                        </div>
                                         <span className="text-white font-bold">{match.result}</span>
                                     </div>
                                     <div className="flex gap-3 text-xs text-zinc-500">
