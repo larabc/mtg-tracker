@@ -6,6 +6,8 @@ import { useState } from "react";
 import { MULLIGAN_OPTIONS } from "../utils/mulliganOptions";
 import { MATCH_RESULTS } from "../utils/matchResult";
 import { useNavigate } from "react-router-dom";
+import Drawer from "../components/Drawer";
+import type { NewDeck } from "../types";
 
 const RESULT_STYLE: Record<string, { base: string; selected: string }> = {
     '2-0': { base: 'border-zinc-700 text-zinc-300', selected: 'border-green-500 bg-green-500/20 text-green-400' },
@@ -22,8 +24,14 @@ const errorClass = "text-red-400 text-xs mt-1";
 export default function NewMatch() {
 
     const { createMatch } = useMatches();
-    const { decks } = useDecks();
+    const { decks, createDeck } = useDecks();
     const navigate = useNavigate();
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+    const handleOpponentDeckCreation = (newDeck: NewDeck) => {
+        const created = createDeck(newDeck);
+        setMatchData({ ...matchData, opponentDeckId: created.id })
+    }
 
     const [matchData, setMatchData] = useState<NewMatch>({
         deckId: '',
@@ -83,6 +91,10 @@ export default function NewMatch() {
         <>
             <Header title="Record Match" />
 
+            {isDrawerOpen && (
+                <Drawer isOpen={isDrawerOpen} onClose={() => setDrawerOpen(false)} onSubmit={handleOpponentDeckCreation} />
+            )}
+
             <div className="flex flex-col gap-6 px-4 pb-28 pt-4">
 
                 {/* My Deck */}
@@ -119,6 +131,10 @@ export default function NewMatch() {
                         ))}
                     </select>
                     {errors.opponentDeckId && <span className={errorClass}>{errors.opponentDeckId}</span>}
+                    <div className="flex items-center justify-between">
+                        <label htmlFor="opponent-deck-select" className={labelClass}>Opponent's Deck</label>
+                        <button type="button" onClick={() => { setDrawerOpen(true) }} className="text-ambre-400 text-sm">+ New</button>
+                    </div>
                 </div>
 
                 {/* Event Type */}
@@ -128,11 +144,10 @@ export default function NewMatch() {
                         {(['MTGO Game', 'In-Person Game'] as EventType[]).map(type => (
                             <label
                                 key={type}
-                                className={`flex-1 text-center py-2 rounded-lg border cursor-pointer text-sm font-medium transition-colors ${
-                                    matchData.eventType === type
-                                        ? 'border-amber-400 bg-amber-400/20 text-amber-400'
-                                        : 'border-zinc-700 text-zinc-300 bg-zinc-800'
-                                }`}
+                                className={`flex-1 text-center py-2 rounded-lg border cursor-pointer text-sm font-medium transition-colors ${matchData.eventType === type
+                                    ? 'border-amber-400 bg-amber-400/20 text-amber-400'
+                                    : 'border-zinc-700 text-zinc-300 bg-zinc-800'
+                                    }`}
                             >
                                 <input
                                     type="radio"
@@ -159,9 +174,8 @@ export default function NewMatch() {
                                 <button
                                     key={result}
                                     onClick={() => handleResultSelect(result)}
-                                    className={`flex-1 py-3 rounded-lg border font-bold text-sm transition-colors ${
-                                        isSelected ? style.selected : `${style.base} bg-zinc-800`
-                                    }`}
+                                    className={`flex-1 py-3 rounded-lg border font-bold text-sm transition-colors ${isSelected ? style.selected : `${style.base} bg-zinc-800`
+                                        }`}
                                 >
                                     {result}
                                 </button>

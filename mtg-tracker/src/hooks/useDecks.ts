@@ -25,6 +25,7 @@ const useDecks = () => {
     function createDeck(deck: NewDeck) {
         const newDeck = { ...deck, id: uuidv4(), createdAt: new Date().toISOString() };
         setDecks([...decks, newDeck]);
+        return newDeck;
     }
 
     function updateDeck(deck: Deck) {

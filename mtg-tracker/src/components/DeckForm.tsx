@@ -4,7 +4,19 @@ import { COLORS } from "../utils/colors";
 import type { Archetype, Color, Format, NewDeck } from "../types";
 import { ARCHETYPES } from "../utils/archetypes";
 import { COLOR_MAP } from "../utils/colorMap";
+import wIcon from '../assets/w.svg'
+import uIcon from '../assets/u.svg'
+import bIcon from '../assets/b.svg'
+import rIcon from '../assets/r.svg'
+import gIcon from '../assets/g.svg'
 
+const COLOR_ICONS: Record<string, string> = {
+    W: wIcon,
+    U: uIcon,
+    B: bIcon,
+    R: rIcon,
+    G: gIcon,
+}
 
 type DeckFormProps = {
     onSubmit: (data: NewDeck) => void
@@ -54,7 +66,7 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
             <fieldset className="flex gap-3">
                 <legend className="text-zinc-400 text-sm">Color Identity</legend>
                 {COLORS.map(color => (
-                    <div key={color} className="flex tems-center">
+                    <div key={color} className="flex justify-center items-center">
                         <input
                             type="checkbox"
                             id={`color-${color.toLowerCase()}`}
@@ -64,8 +76,10 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
                         />
                         <label
                             htmlFor={`color-${color.toLowerCase()}`}
-                            className={`w-8 h-8 rounded-full cursor-pointer peer-checked:ring-2 peer-checked:ring-amber-400 peer-checked:ring-offset-2 peer-checked:ring-offset-zinc-900 ${COLOR_MAP[color]}`}
-                        />
+                            className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer peer-checked:ring-2 peer-checked:ring-amber-400 peer-checked:ring-offset-2 peer-checked:ring-offset-zinc-900 ${COLOR_MAP[color]}`}
+                        >
+                            <img src={COLOR_ICONS[color]} alt={color} className="w-6" />
+                        </label>
                     </div>
                 ))}
             </fieldset>

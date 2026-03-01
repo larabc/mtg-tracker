@@ -4,12 +4,12 @@ import type { NewDeck } from "../types";
 type DrawerProps = {
     isOpen: boolean,
     onClose: () => void,
-    createDeck: (deck: NewDeck) => void
+    onSubmit: (deck: NewDeck) => void
 };
 
-export default function Drawer({ onClose, createDeck }: DrawerProps) {
+export default function Drawer({ onClose, onSubmit }: DrawerProps) {
     const handleSubmit = (newDeck: NewDeck) => {
-        createDeck(newDeck);
+        onSubmit(newDeck);
         onClose();
     };
 
