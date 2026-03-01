@@ -28,10 +28,7 @@ export default function NewMatch() {
     const navigate = useNavigate();
     const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-    const handleOpponentDeckCreation = (newDeck: NewDeck) => {
-        const created = createDeck(newDeck);
-        setMatchData({ ...matchData, opponentDeckId: created.id })
-    }
+
 
     const [matchData, setMatchData] = useState<NewMatch>({
         deckId: '',
@@ -45,6 +42,11 @@ export default function NewMatch() {
     })
 
     const [errors, setErrors] = useState<{ deckId?: string, opponentDeckId?: string, eventType?: string, result?: string }>({});
+
+    const handleOpponentDeckCreation = (newDeck: NewDeck) => {
+        const created = createDeck(newDeck);
+        setMatchData({ ...matchData, opponentDeckId: created.id })
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -117,7 +119,10 @@ export default function NewMatch() {
 
                 {/* Opponent's Deck */}
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="opponent-deck-select" className={labelClass}>Opponent's Deck</label>
+                    <div className="flex items-center justify-between">
+                        <label htmlFor="opponent-deck-select" className={labelClass}>Opponent's Deck</label>
+                        <button type="button" onClick={() => setDrawerOpen(true)} className="text-amber-400 text-sm">+ New</button>
+                    </div>
                     <select
                         name="opponentDeckId"
                         id="opponent-deck-select"
@@ -131,10 +136,7 @@ export default function NewMatch() {
                         ))}
                     </select>
                     {errors.opponentDeckId && <span className={errorClass}>{errors.opponentDeckId}</span>}
-                    <div className="flex items-center justify-between">
-                        <label htmlFor="opponent-deck-select" className={labelClass}>Opponent's Deck</label>
-                        <button type="button" onClick={() => { setDrawerOpen(true) }} className="text-ambre-400 text-sm">+ New</button>
-                    </div>
+
                 </div>
 
                 {/* Event Type */}
