@@ -14,7 +14,6 @@ export default function DecksList({ decks }: { decks: Deck[] }) {
         <>
             {
                 decks.map(deck => {
-
                     const deckMatches = matches.filter(match => match.deckId === deck.id)
                     const winRate = calculateWinRate(deckMatches)
                     return (

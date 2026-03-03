@@ -29,7 +29,7 @@ const StatsDeck = () => {
     if (!deck) return <p className="text-zinc-400 p-4"> Deck not found</p>
     return (
         <>
-            <Header title={deck.name} />
+            <Header title={deck.name} hasBackButton={true} />
 
             <div className="flex flex-col gap-6 px-4 pt-4 pb-8">
 
