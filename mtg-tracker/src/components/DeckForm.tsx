@@ -90,7 +90,7 @@ export default function DeckForm({ onSubmit }: DeckFormProps) {
                 ))}
             </select>
             <textarea name="comments" id="comments" onChange={handleInputChange} className="w-full bg-zinc-800 text-white rounded-lg px-3 py-2 outline-none border border-zinc-700" />
-            <button>Create Deck</button>
+            <button className="w-full py-3 rounded-xl bg-amber-400 text-zinc-950 font-bold text-base">Create Deck</button>
         </form>
     )
 }
